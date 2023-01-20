@@ -17,15 +17,8 @@ import {
 import { InstallmentSchema } from "../../validator/schema";
 
 const CalculatorContainer = () => {
-  const {
-    amount,
-    installments,
-    mdr,
-    setAmount,
-    setInstallment,
-    setMdr,
-    submitInstallment,
-  } = useIsntallmentContext();
+  const { submitInstallment, tomorrow, in15Days, in30Days, in90Days } =
+    useIsntallmentContext();
 
   const {
     register,
@@ -77,24 +70,52 @@ const CalculatorContainer = () => {
             type="text"
             {...register("mdr")}
           />
+          <Buttom type="submit">Enviar</Buttom>
         </Form>
-        <Buttom type="submit">Enviar</Buttom>
       </BackgroundWhite>
       <BackgroundLigthgray>
         <ContainerInstallments>
           <h1>VOCÊ RECEBERÁ:</h1>
           <p className="sub">_____________________________</p>
           <p className="installment">
-            Amanhã: <span>R$ 0,00</span>
+            Amanhã:{" "}
+            <span>
+              {tomorrow.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                style: "currency",
+                currency: "BRL",
+              })}
+            </span>
           </p>
           <p className="installment">
-            Em 15 dias: <span>R$ 0,00</span>
+            Em 15 dias:{" "}
+            <span>
+              {in15Days.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                style: "currency",
+                currency: "BRL",
+              })}
+            </span>
           </p>
           <p className="installment">
-            Em 30 dias: <span>R$ 0,00</span>
+            Em 30 dias:{" "}
+            <span>
+              {in30Days.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                style: "currency",
+                currency: "BRL",
+              })}
+            </span>
           </p>
           <p className="installment">
-            Em 90 dias: <span>R$ 0,00</span>
+            Em 90 dias:{" "}
+            <span>
+              {in90Days.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                style: "currency",
+                currency: "BRL",
+              })}
+            </span>
           </p>
         </ContainerInstallments>
       </BackgroundLigthgray>
@@ -103,8 +124,3 @@ const CalculatorContainer = () => {
 };
 
 export default CalculatorContainer;
-
-// toLocaleString("pt-BR", {
-//   minimumFractionDigits: 2,
-//   style: "currency",
-//   currency: "BRL",

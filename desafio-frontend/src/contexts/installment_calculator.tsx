@@ -13,14 +13,10 @@ export interface ISubmitInstallment {
 }
 
 interface IInstallmentData {
-  amount: number;
-  installments: number;
-  mdr: number;
-  days?: [];
-  setAmount: React.Dispatch<React.SetStateAction<number>>;
-  setInstallment: React.Dispatch<React.SetStateAction<number>>;
-  setMdr: React.Dispatch<React.SetStateAction<number>>;
-  setDays: React.Dispatch<React.SetStateAction<[]>>;
+  tomorrow: number;
+  in15Days: number;
+  in30Days: number;
+  in90Days: number;
   submitInstallment: (data: ISubmitInstallment) => void;
 }
 
@@ -29,15 +25,19 @@ const InstallmentContext = createContext<IInstallmentData>(
 );
 
 const InstallmentProvider = ({ children }: IInstallmentCalculator) => {
-  const [amount, setAmount] = useState(0);
-  const [installments, setInstallment] = useState(0);
-  const [mdr, setMdr] = useState(0);
-  const [days, setDays] = useState<[]>([]);
+  const [tomorrow, setTomorrow] = useState(0);
+  const [in15Days, setIn15Days] = useState(0);
+  const [in30Days, setIn30Days] = useState(0);
+  const [in90Days, setIn90Days] = useState(0);
 
   const submitInstallment = async (data: ISubmitInstallment) => {
-    console.log(data);
     try {
-      await api.post("/", data).then((response) => console.log(response.data));
+      await api.post("/", data).then((response) => {
+        setTomorrow(response.data[1]);
+        setIn15Days(response.data[15]);
+        setIn30Days(response.data[30]);
+        setIn90Days(response.data[90]);
+      });
     } catch (error) {
       console.error(error);
     }
@@ -46,14 +46,10 @@ const InstallmentProvider = ({ children }: IInstallmentCalculator) => {
   return (
     <InstallmentContext.Provider
       value={{
-        amount,
-        installments,
-        mdr,
-        days,
-        setAmount,
-        setInstallment,
-        setMdr,
-        setDays,
+        tomorrow,
+        in15Days,
+        in30Days,
+        in90Days,
         submitInstallment,
       }}
     >

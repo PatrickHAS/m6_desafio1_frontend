@@ -54,6 +54,7 @@ export const Form = styled.form<ICalculatorProps>`
     height: 40px;
     border-radius: 4px;
     border: 2px solid #ced4da;
+    box-sizing: border-box;
     outline: none;
   }
 
@@ -76,6 +77,7 @@ export const Buttom = styled.button<ICalculatorProps>`
   background-color: #656565;
   border-radius: 4px;
   margin-top: 50px;
+  margin-left: 220px;
   border: none;
 
   :hover {
@@ -116,6 +118,7 @@ export const ContainerInstallments = styled.div<ICalculatorProps>`
 
 export const LabelErrors = styled.div`
   width: 100%;
+  height: 20px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 2px;
@@ -123,5 +126,6 @@ export const LabelErrors = styled.div`
 
   p {
     color: #9b2226;
+    font-size: 15px;
   }
 `;
